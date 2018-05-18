@@ -7,5 +7,7 @@ python:
 env:
 install:
 - pip install .
+script:
+- python runtests.py -u
 notifications:
   email: false
