@@ -4,10 +4,18 @@ python:
 - '3.4'
 - '3.5'
 - '3.6'
-env:
+env: 
 install:
 - pip install .
 script:
 - python runtests.py -u
+deploy:
+  provider: pypi
+  user: emorynlp
+  on:
+    tags: true
+    branch: master
+  password:
+    secure: DCdcapu3XyenMP6Mk+hMQGy21D0UzuOCdnzTx2+dpggRAK/uWy51odJoJSqjJzsm7DLcyTHjH4Ew0gMhuxFlger3ZFwRa2qm15awxFV5HenzBNWuCprWs1cPOx+nVdSWDa0BpD0tnHTEGE5KAhxHr0Fid8Tnt0hcNgvEf4IxNtPMoWwjFUOCAc2nCktRHqWYHgRAoXgSGcPPt7TzRi9LSkYfGPUOqNU9T8NPOhsj+ybusyEV1OJV1Ah9sNM4gD9aJQ8hd8rEwGNRW4CBJEjyPVsRomsykaRGvqijHw0WYPfgirkv1L4+1/oYSfGIb8BF1GwGFrL1lss5oaSBtWBD9swSc3MYG/VUyMBaTgrmfsmWlqKyC+lLAgUcH1BBYJOnVFMng/mujEdvX/nXoLvBGt9yrTpI3PwsLipOYLGItnrsplYx69MhOdXY3YSJksO0JpzWz3ukP/vt9eEsbmZKnOKKZ5kPKexvTUo6J0Hgo5K6BhEm20OgIphLrVSAz38SxQ8D4hMIEWhoyZ1+Hq+Es0QMe0K9xcILTyjiOa/ckgA71S36iMLHsklnAzf0xlCXF/fbpgbB6muFPlHaL0lTKYBsLmPay4ST5RvsXTQg7bhiq67GPO/TT071t+QtlNkoxCNdJ/2OmpfdVCl/cLP40E/J5FslKAE6b3gnfmMLk+c=
 notifications:
   email: false

@@ -139,14 +139,14 @@ def _get_readme():
 
 
 setup(
-    name='fasttext',
+    name='yafasttext',
     version=__version__,
-    author='Christian Puhrsch',
-    author_email='cpuhrsch@fb.com',
-    description='fastText Python bindings',
+    author='Gary Lai',
+    author_email='gary.lai@emory.edu',
+    description='yet another fastText Python bindings',
     long_description=_get_readme(),
     ext_modules=ext_modules,
-    url='https://github.com/facebookresearch/fastText',
+    url='https://github.com/elitcloud/yafasttext',
     license='BSD',
     classifiers=[
         'Development Status :: 3 - Alpha',
