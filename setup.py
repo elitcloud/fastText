@@ -15,6 +15,7 @@ from __future__ import unicode_literals
 from setuptools import setup, Extension
 from setuptools.command.build_ext import build_ext
 import sys
+import subprocess
 import setuptools
 import os
 
