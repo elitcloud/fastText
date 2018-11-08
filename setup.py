@@ -19,7 +19,7 @@ import subprocess
 import setuptools
 import os
 
-__version__ = '0.8.22.2'
+__version__ = '0.8.22.3'
 FASTTEXT_SRC = "src"
 
 # Based on https://github.com/pybind/python_example
