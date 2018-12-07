@@ -18,15 +18,16 @@ import sys
 import subprocess
 import setuptools
 import os
+import subprocess
 
 __version__ = '0.8.22.3'
 FASTTEXT_SRC = "src"
 
 # Based on https://github.com/pybind/python_example
 
-
 class get_pybind_include(object):
     """Helper class to determine the pybind11 include path
+
     The purpose of this class is to postpone importing pybind11
     until it is actually installed, so that the ``get_include()``
     method can be invoked. """
@@ -44,6 +45,13 @@ class get_pybind_include(object):
         import pybind11
         return pybind11.get_include(self.user)
 
+try:
+    coverage_index = sys.argv.index('--coverage')
+except ValueError:
+    coverage = False
+else:
+    del sys.argv[coverage_index]
+    coverage = True
 
 fasttext_src_files = map(str, os.listdir(FASTTEXT_SRC))
 fasttext_src_cc = list(filter(lambda x: x.endswith('.cc'), fasttext_src_files))
@@ -66,7 +74,8 @@ ext_modules = [
             FASTTEXT_SRC,
         ],
         language='c++',
-        extra_compile_args=["-O3 -funroll-loops -pthread -march=native"],
+        extra_compile_args=["-O0 -fno-inline -fprofile-arcs -pthread -march=native" if coverage else
+                            "-O3 -funroll-loops -pthread -march=native"],
     ),
 ]
 
@@ -122,6 +131,13 @@ class BuildExt(build_ext):
                 )
         ct = self.compiler.compiler_type
         opts = self.c_opts.get(ct, [])
+        extra_link_args = []
+
+        if coverage:
+            coverage_option = '--coverage'
+            opts.append(coverage_option)
+            extra_link_args.append(coverage_option)
+
         if ct == 'unix':
             opts.append('-DVERSION_INFO="%s"' % self.distribution.get_version())
             opts.append(cpp_flag(self.compiler))
@@ -133,6 +149,7 @@ class BuildExt(build_ext):
             )
         for ext in self.extensions:
             ext.extra_compile_args = opts
+            ext.extra_link_args = extra_link_args
         build_ext.build_extensions(self)
 
 
